@@ -1,9 +1,9 @@
 let canvas = document.getElementById("myCanvas");
 let ctx = canvas.getContext("2d");
 let img1 = document.getElementById("img1");
-let img2= document.getElementById("img2");
-let img3= document.getElementById("img3");
-let img4= document.getElementById("img4");
+let img2 = document.getElementById("img2");
+let img3 = document.getElementById("img3");
+let img4 = document.getElementById("img4");
 let paddle =
     {
         a: 270,
@@ -231,15 +231,15 @@ function animatetion() {
     pausebutton()
     collisionBrick()
     resetButton()
-    let loop = false
+ /*   let loop = false
     if (status == 0){
         cancelAnimationFrame(loop);
         // x = 10
         // y = 10
         // draw()
     }else{
-        loop = requestAnimationFrame(animatetion)
-    }
+        loop = */requestAnimationFrame(animatetion)
+   /* }*/
 
 }
 
