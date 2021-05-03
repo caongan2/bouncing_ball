@@ -14,8 +14,8 @@ let paddle =
 
 let y = 630
 let x = 330
-let speedY = 5
-let speedX = 5
+let speedY = 3
+let speedX = 3
 let score = 0
 let level = 1
 let lives = 3
@@ -61,71 +61,6 @@ for (let i = 0; i < brickColumCout; i++) {
     }
 }
 
-function drawBrick() {
-    for (let i = 0; i < brickColumCout; i++) {
-        for (let j = 0; j < brickRowcout; j++){
-            if (bricks[i][j].status == 1) {
-                brickX = (i*(brickWidth+brickPadding) + brickSetLeft)
-                brickY = (j*(brickHeight+brickPadding) + brickSetTop)
-                bricks[i][j].x = brickX
-                bricks[i][j].y = brickY
-                ctx.beginPath();
-                ctx.rect(brickX, brickY, brickWidth, brickHeight);
-                ctx.fillStyle = "#3fc41c";
-                ctx.fill();
-                ctx.closePath();
-            }
-        }
-    }
-}
-
-function collisionBrick() {
-    for (let i = 0; i < brickColumCout; i++) {
-        for (let j = 0; j < brickRowcout; j++) {
-            let b = bricks[i][j]
-            if (b.status == 1) {
-                if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
-                    speedY = -speedY
-                    score++
-                    bricks[i][j] = 0
-                    if (score == brickColumCout*brickRowcout) {
-                        alert("Diu Guyn")
-                        document.location.reload()
-                        clearInterval(interval)
-                    }
-                    //if (y == 680-paddle.h && x > paddle.a && x <= paddle.a + paddle.w){
-                        if (score%2==0 && score%3 !=0){
-                            img1.style.display = 'inline-block'
-                            img2.style.display = 'none'
-                            img3.style.display = 'none'
-                            img4.style.display = 'none'
-                        }else if (score%3 == 0 && score%2 !=0){
-                            img1.style.display = 'none'
-                            img2.style.display = 'inline-block'
-                            img3.style.display = 'none'
-                            img4.style.display = 'none'
-
-                        } else if (score%3==0 && score%2==0){
-                            level++
-                            speedX +=1
-                            speedY +=1
-                            img1.style.display = 'none'
-                            img2.style.display = 'none'
-                            img3.style.display = 'inline-block'
-                            img4.style.display = 'none'
-
-                        } else if (score%2 != 0){
-                            img1.style.display = 'none'
-                            img2.style.display = 'none'
-                            img3.style.display = 'none'
-                            img4.style.display = 'inline-block'
-                        }
-                    //}
-                }
-            }
-        }
-    }
-}
 
 function drawBall() {
     ctx.beginPath();
@@ -167,7 +102,7 @@ function drawBall() {
 }
 
 
-function drawRetangle() {
+function drawPaddle() {
     ctx.beginPath()
     ctx.rect(paddle.a, paddle.b, paddle.w, paddle.h)
     ctx.fill()
@@ -184,6 +119,81 @@ function drawStraightLine() {
     ctx.stroke();
     ctx.closePath()
 }
+
+function drawBrick() {
+    for (let i = 0; i < brickColumCout; i++) {
+        for (let j = 0; j < brickRowcout; j++){
+            if (bricks[i][j].status == 1) {
+                brickX = (i*(brickWidth+brickPadding) + brickSetLeft)
+                brickY = (j*(brickHeight+brickPadding) + brickSetTop)
+                bricks[i][j].x = brickX
+                bricks[i][j].y = brickY
+                ctx.beginPath();
+                ctx.rect(brickX, brickY, brickWidth, brickHeight);
+                ctx.fillStyle = "#3fc41c";
+                ctx.fill();
+                ctx.closePath();
+            }
+        }
+    }
+}
+
+
+function collisionBrick() {
+    for (let i = 0; i < brickColumCout; i++) {
+        for (let j = 0; j < brickRowcout; j++) {
+            let b = bricks[i][j]
+            if (b.status == 1) {
+                if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
+                    speedY = -speedY
+                    score++
+                    bricks[i][j] = 0
+                    if (score == brickColumCout*brickRowcout) {
+                        alert("Diu Guyn")
+                        document.location.reload()
+                        clearInterval(interval)
+                    }
+                    //if (y == 680-paddle.h && x > paddle.a && x <= paddle.a + paddle.w){
+                    if (score>=0 && score<=15){
+                        img1.style.display = 'inline-block'
+                        img2.style.display = 'none'
+                        img3.style.display = 'none'
+                        img4.style.display = 'none'
+                    }else if (score > 15 && score <=30){
+                        level = 2
+                        speedX = 5
+                        speedY = 5
+                        img1.style.display = 'none'
+                        img2.style.display = 'inline-block'
+                        img3.style.display = 'none'
+                        img4.style.display = 'none'
+
+                    } else if (score > 30 && score <= 45){
+                        level = 3
+                        speedX = 6
+                        speedY = 6
+                        img1.style.display = 'none'
+                        img2.style.display = 'none'
+                        img3.style.display = 'inline-block'
+                        img4.style.display = 'none'
+
+                    } else if (score> 45 && score <= 54){
+                        level = 4
+                        speedX = 7
+                        speedY = 7
+                        img1.style.display = 'none'
+                        img2.style.display = 'none'
+                        img3.style.display = 'none'
+                        img4.style.display = 'inline-block'
+                    }
+                    //}
+                }
+            }
+        }
+    }
+}
+
+
 
 function drawScore() {
     let c = document.getElementById("myCanvas");
@@ -211,7 +221,7 @@ function animatetion() {
 
     ctx.clearRect(0, 0, 800, 700)
     drawBall()
-    drawRetangle()
+    drawPaddle()
     drawStraightLine()
     drawScore()
     drawLevel()
